@@ -21,7 +21,7 @@ class Categoria(models.Model):
         return str(self.nombre)    
 
 class Productos(models.Model):
-    codproducto = models.CharField( max_length=500)
+    codproducto = models.CharField(primary_key=True,max_length=255)
     nombre = models.CharField(max_length=500, blank=True, null=True)
     descripcion = models.CharField(max_length=500, blank=True, null=True)
     precio_unit = models.FloatField(blank=True, null=True)
@@ -37,6 +37,9 @@ class Productos(models.Model):
 
     class Meta:
         db_table = 'productos'
+
+    def __str__(self):
+        return str(self.nombre) 
 
 
 class Cajas(models.Model):
