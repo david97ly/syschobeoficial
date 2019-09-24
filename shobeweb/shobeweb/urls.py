@@ -26,4 +26,7 @@ from django.views.static import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^productos',productos, name='productos'),
+    re_path(r'^ventas',ventas, name='ventas'),
+    re_path(r'^detalleventa/(?P<idventa>\d+)$',detalleventa, name='detalleventa'),
+    re_path(r'^ventadiaria',ventadiaria, name='ventadiaria'),
 ]

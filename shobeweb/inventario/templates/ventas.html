@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
+
+    {% load static from staticfiles %}
+
+    <link rel="stylesheet" href="{% static "css/ventas.css" %}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+
+    <title>Ventas realizadas</title>
+</head>
+<body>
+    
+    
+
+
+	<header>
+
+		<div class="header-limiter">
+
+			     <div class="buscador">
+       <div class="input-group mb-2">
+       
+        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Escribe aqui nombre del cliente... {{hoy}}">
+         <div class="input-group-prepend">
+          <div class="input-group-text">BUSCAR</div>
+        </div>
+      </div>
+    </div>
+		</div>
+
+	</header>
+
+<div class="row">
+
+	<section class="main-content">
+	
+           <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Numero</th>
+      <th scope="col">Nombre del cliente</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Fecha de emision</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Total</th>
+      <th scope="col">Acciones</th>
+     
+
+    </tr>
+  </thead>
+  <tbody>
+    
+
+      {% for x in vent %}
+
+   
+       
+         
+      <tr class="toc">
+    <a href="{% url "detalleventa" x.codfacturav %}" >
+      <td scope="row">
+       
+        {{x.numfacturav}}
+       
+        </td>
+      <td>{{x.cliente}}</td>
+      <td>{{x.tipo}}</td>
+      <td>{{ x.fecha | date:"D d M Y"}}</td>
+      <td>{{x.usuario}}</td>
+
+       
+      <th>{{x.total}}</th>
+  
+      <td>
+        
+
+        <a href="{% url "detalleventa" x.codfacturav %}">Detalle</a>
+      </td>
+</a>
+    </tr>
+    
+
+   
+
+{% endfor %}
+  </tbody>
+</table>
+
+
+	</section>
+
+   
+
+</div>
+
+
+
+
+	<footer>
+		
+		<div class="footer-limiter">
+
+			<div class="footer-right">
+
+				<a href="#"><i class="fa fa-facebook"></i></a>
+				<a href="#"><i class="fa fa-twitter"></i></a>
+				<a href="#"><i class="fa fa-linkedin"></i></a>
+				<a href="#"><i class="fa fa-github"></i></a>
+
+			</div>
+
+			<div class="footer-left">
+
+				<p class="footer-links">This is your sticky footer</p>
+
+				<p>Company Name © 2016</p>
+			</div>
+
+		</div>
+
+	</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
