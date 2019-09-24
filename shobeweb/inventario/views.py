@@ -53,11 +53,10 @@ def ventas(request):
     dia = datetime.today().day
     mes = datetime.now().month
     year = datetime.now().year
-    semana = datetime.now().weekday()
 
-    numventas = Facturaventa.objects.filter(fecha__month=mes,fecha__year=2018).order_by('codfacturav').count()
-    #ventas = Facturaventa.objects.filter(fecha__month=mes,fecha__year=2018).order_by('codfacturav')[(numventas/2):numventas]
-    ventas = Facturaventa.objects.filter(fecha__range=('2019-08-04', '2019-08-04')).order_by('codfacturav').reverse()
+    #numventas = Facturaventa.objects.filter(fecha__month=mes,fecha__year=2018).order_by('codfacturav').count()
+    ventas = Facturaventa.objects.filter(fecha__month=mes,fecha__year=year,fecha__day=dia).order_by('codfacturav')
+    #ventas = Facturaventa.objects.filter(fecha__range=('2019-08-04', '2019-08-04')).order_by('codfacturav').reverse()
     
 
     lventas = []
@@ -182,6 +181,96 @@ def ventadiaria(request):
     template = "ventadiaria.html"
     saludo = "Venta diaria"
     
+    hoy = datetime.today()
+    dia = datetime.today().day
+    mes = datetime.now().month
+    year = datetime.now().year
+    
+    ventas = Facturaventa.objects.filter(fecha__month=8,fecha__year=2019,fecha__day=4)
+
+    lisdetalles = []
+    listadetalle = []
+    det = []
+  
+    for v in ventas:
+        det = Detalleventa.objects.filter(codfacturav = v.codfacturav)
+        lisdetalles.append(det)
+   
+
+    for l in lisdetalles:
+        for i in l:
+            listadetalle.append(i)
+
+
+    lfinal = []
+    listapasados = []
+
+    class ProductoDetalle:
+        coddetalle = 0
+        codigo = ''
+        producto = ''
+    
+        def __init__(self):
+            self.precio = []
+            self.cantidad = []
+            self.venta = []
+
+        def mostrarPreci(self):
+            for i in self.precio:
+                print(i)
+    
+    for li in listadetalle:
+        
+        esta = False
+        for lf in lfinal: #primero hacemos un recorido por la lista que vamos llenando
+            if not (lf.coddetalle == li.coddetallefacturav): ##luego en esa lista buscamos  si es el producto
+                if lf.codigo == li.codproducto:
+                    lf.precio.append(li.preciopublico)
+                    lf.cantidad.append(li.cantidadunit)
+                    lf.venta.append(li.total)
+
+                    if lf.codigo == '7412100065309':
+                        print("Es el mismo lo sigo agregando")
+                        print(lf.codigo)
+                        print(li.codproducto)
+                        print("TAMBIEN DIFERENTE CODIGO DE DETALLE")
+                        print(lf.coddetalle)
+                        print(li.coddetallefacturav)
+
+                   
+                    esta = True
+                          
+            else:
+                print("___...::: ES EL MISMO DETALLE :::...___:...........---........---....:..---..:...............:..")
+                esta = True
+        
+        if not esta:
+            pr = ProductoDetalle()
+            pr.coddetalle = li.coddetallefacturav
+            pr.codigo = li.codproducto
+            p = Productos.objects.get(codproducto = li.codproducto)
+            pr.producto = p.nombre
+            pr.precio.append(li.preciopublico)
+            pr.cantidad.append(li.cantidadunit)
+            pr.venta.append(li.total)
+
+            lfinal.append(pr)
+    
+    for lif in lfinal:
+        print(lif.coddetalle)
+        print(lif.codigo)
+        print(lif.producto)
+        print("Precios:")
+        lif.mostrarPreci()
+        print("Cantidades:")
+        for r2 in lif.cantidad:
+            print(r2)
+        print("Ventas:")
+        for r3 in lif.venta:
+            print(r3)
+        
+
+
 
 
 
