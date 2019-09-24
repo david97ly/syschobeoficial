@@ -203,46 +203,31 @@ def ventadiaria(request):
 
 
     lfinal = []
-    listapasados = []
 
     class ProductoDetalle:
         coddetalle = 0
         codigo = ''
         producto = ''
+        rprecio = 0
+        rcantidad = 0
+        rtotal = 0
     
         def __init__(self):
             self.precio = []
             self.cantidad = []
             self.venta = []
-
-        def mostrarPreci(self):
-            for i in self.precio:
-                print(i)
+            self.detalle = []
     
     for li in listadetalle:
-        
         esta = False
-        for lf in lfinal: #primero hacemos un recorido por la lista que vamos llenando
-            if not (lf.coddetalle == li.coddetallefacturav): ##luego en esa lista buscamos  si es el producto
+        for lf in lfinal: #primero buscamos un recorido por la lista que vamos llenando
+            if not (lf.coddetalle == li.coddetallefacturav): 
                 if lf.codigo == li.codproducto:
                     lf.precio.append(li.preciopublico)
                     lf.cantidad.append(li.cantidadunit)
-                    lf.venta.append(li.total)
-
-                    if lf.codigo == '7412100065309':
-                        print("Es el mismo lo sigo agregando")
-                        print(lf.codigo)
-                        print(li.codproducto)
-                        print("TAMBIEN DIFERENTE CODIGO DE DETALLE")
-                        print(lf.coddetalle)
-                        print(li.coddetallefacturav)
-
-                   
+                    lf.venta.append(li.total)    
+                    lf.detalle.append(li.coddetallefacturav)
                     esta = True
-                          
-            else:
-                print("___...::: ES EL MISMO DETALLE :::...___:...........---........---....:..---..:...............:..")
-                esta = True
         
         if not esta:
             pr = ProductoDetalle()
@@ -253,6 +238,7 @@ def ventadiaria(request):
             pr.precio.append(li.preciopublico)
             pr.cantidad.append(li.cantidadunit)
             pr.venta.append(li.total)
+            pr.detalle.append(li.coddetallefacturav)
 
             lfinal.append(pr)
     
@@ -261,7 +247,8 @@ def ventadiaria(request):
         print(lif.codigo)
         print(lif.producto)
         print("Precios:")
-        lif.mostrarPreci()
+        for r1 in lif.precio:
+            print(r1)
         print("Cantidades:")
         for r2 in lif.cantidad:
             print(r2)
