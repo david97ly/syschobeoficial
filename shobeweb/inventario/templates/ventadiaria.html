@@ -39,7 +39,7 @@
 	<section class="main-content">
 	
            <table class="table">
-  <thead class="thead-dark">
+  <thead class="thead-dark" style="font-size: 18px">
     <tr>
       <th scope="col">Codigo</th>
       <th scope="col">Producto</th>
@@ -54,7 +54,7 @@
   <tbody>
     
 
-      {% for x in vent %}
+      {% for x in lfinal %}
 
    
        
@@ -63,26 +63,43 @@
  
       <td scope="row">
        
-        {{x.numfacturav}}
+        {{x.codigo}}
        
         </td>
-      <td>{{x.cliente}}</td>
-      <td>{{x.tipo}}</td>
-      <td>{{ x.fecha | date:"D d M Y"}}</td>
-      <td>{{x.usuario}}</td>
+      <td>{{x.producto}}</td>
 
+        {% if x.mas %}
+        <td>
+          <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg{{x.coddetalle}}">{{x.rprecio|floatformat:2 }}</button>
+        </td>
+        
+        {% else %}
+          <td>
+         <a href="{% url "detalleventa" x.coddetalle %}"> <button type="button" class="btn btn-info">{{x.rprecio|floatformat:2 }}</button></a>
+        </td>
+        {% endif %}
+      
+
+
+      <td>{{ x.rcantidad}}</td>
+      <th style="font-size: 20px">{{x.rtotal|floatformat:2}}</th>
+      
        
    
 
     </tr>
+
+    
     
 
    
 
 {% endfor %}
+  
   </tbody>
 </table>
 
+<h3 class="vt">Venta total: ${{total|floatformat:2}}</h3>
 
 	</section>
 
@@ -90,32 +107,92 @@
 
 </div>
 
+{% for x in lfinal %}
+
+  {% if x.mas %}
 
 
 
-	<footer>
-		
-		<div class="footer-limiter">
+<div class="modal fade bd-example-modal-lg{{x.coddetalle}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
 
-			<div class="footer-right">
+        	<section class="main-content">
+	
+           <table class="table">
+  <thead class="thead-dark" style="font-size: 18px">
+    <tr>
+      <th scope="col">Codigo</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Venta</th>
 
-				<a href="#"><i class="fa fa-facebook"></i></a>
-				<a href="#"><i class="fa fa-twitter"></i></a>
-				<a href="#"><i class="fa fa-linkedin"></i></a>
-				<a href="#"><i class="fa fa-github"></i></a>
+     
 
-			</div>
+    </tr>
+  </thead>
+  <tbody>
+    
 
-			<div class="footer-left">
+      {% for a,b,c,d in x.comprimido %}
 
-				<p class="footer-links">This is your sticky footer</p>
+   
+       
+         
+      <tr class="toc">
+ 
+      <td scope="row">
+       <a href="{% url "detalleventa" a %}"> <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg{{x.coddetalle}}">{{a }}</button></a>
+        
+       
+        </td>
+      <td>{{x.producto}}</td>
 
-				<p>Company Name © 2016</p>
-			</div>
+       
+        <td>
+        {{b}}
+        </td>
+     
+      
 
-		</div>
 
-	</footer>
+      <td>{{c}}</td>
+      <th style="font-size: 20px">{{d|floatformat:2}}</th>
+      
+       
+   
+
+    </tr>
+
+    
+    
+
+   
+
+{% endfor %}
+  
+  </tbody>
+</table>
+
+<h3 class="vt">Venta total: ${{x.rtotal|floatformat:2}}</h3>
+
+	</section>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+  {% endif %}
+
+{% endfor %}
+
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

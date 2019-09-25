@@ -180,13 +180,14 @@ def ventadiaria(request):
     
     template = "ventadiaria.html"
     saludo = "Venta diaria"
+    ventaTotal = 0
     
     hoy = datetime.today()
     dia = datetime.today().day
     mes = datetime.now().month
     year = datetime.now().year
     
-    ventas = Facturaventa.objects.filter(fecha__month=8,fecha__year=2019,fecha__day=4)
+    ventas = Facturaventa.objects.filter(fecha__month=8,fecha__year=2019,fecha__day=4,estado='valida').exclude(Q(total=0) | Q(sumas=0))
 
     lisdetalles = []
     listadetalle = []
@@ -211,6 +212,8 @@ def ventadiaria(request):
         rprecio = 0
         rcantidad = 0
         rtotal = 0
+        mas = False
+        
     
         def __init__(self):
             self.precio = []
@@ -223,44 +226,48 @@ def ventadiaria(request):
         for lf in lfinal: #primero buscamos un recorido por la lista que vamos llenando
             if not (lf.coddetalle == li.coddetallefacturav): 
                 if lf.codigo == li.codproducto:
+
                     lf.precio.append(li.preciopublico)
                     lf.cantidad.append(li.cantidadunit)
                     lf.venta.append(li.total)    
-                    lf.detalle.append(li.coddetallefacturav)
+                    lf.detalle.append(li.codfacturav)
+
+                    lf.rprecio = (lf.rprecio + li.preciopublico)/2
+                    lf.rcantidad += li.cantidadunit
+                    lf.rtotal += li.total
+                    ventaTotal += Decimal(li.total)
+                    lf.mas = True
                     esta = True
         
         if not esta:
             pr = ProductoDetalle()
-            pr.coddetalle = li.coddetallefacturav
+            pr.coddetalle = li.codfacturav
             pr.codigo = li.codproducto
             p = Productos.objects.get(codproducto = li.codproducto)
             pr.producto = p.nombre
+            pr.rprecio = li.preciopublico
+            pr.rcantidad = li.cantidadunit
+
             pr.precio.append(li.preciopublico)
             pr.cantidad.append(li.cantidadunit)
-            pr.venta.append(li.total)
-            pr.detalle.append(li.coddetallefacturav)
+            pr.venta.append(li.total)    
+            pr.detalle.append(li.codfacturav)
+
+            pr.rtotal = li.total
+            ventaTotal += Decimal(li.total)
+
+            
 
             lfinal.append(pr)
     
-    for lif in lfinal:
-        print(lif.coddetalle)
-        print(lif.codigo)
-        print(lif.producto)
-        print("Precios:")
-        for r1 in lif.precio:
-            print(r1)
-        print("Cantidades:")
-        for r2 in lif.cantidad:
-            print(r2)
-        print("Ventas:")
-        for r3 in lif.venta:
-            print(r3)
-        
+   
+    for l in lfinal:
+        l.comprimido = zip(l.detalle,l.precio,l.cantidad,l.venta)
 
 
 
 
 
-    context = {'saludo':saludo}
+    context = {'saludo':saludo,'lfinal':lfinal,'total':ventaTotal}
 
     return render(request,template,context)

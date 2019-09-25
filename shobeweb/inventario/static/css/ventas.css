@@ -306,3 +306,11 @@ footer .footer-right a{
 	background-color: #608bd2;
 	cursor: pointer;
 }
+
+.vt{
+	text-align: right;
+	background-color: green;
+	color: white;
+	font-weight: 700;
+	padding: 25px;
+}
