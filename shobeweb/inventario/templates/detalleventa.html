@@ -14,6 +14,18 @@
     
 
     <title>Ventas realizadas</title>
+
+
+    <style>
+      #cli{
+          width: 300px;
+      }
+
+      .totales{
+          width: 250px;
+         
+      }
+    </style>
 </head>
 <body>
     
@@ -66,7 +78,7 @@
             <div class="row t2">
                 <div class="col-lg-3">
                     <div><label for="cli">Número de factura</label></div>
-                    <div><input id="cli" type="text" value="{{f.numfactura}}" readonly></div>
+                    <div><input  type="text" value="{{f.numfactura}}" readonly></div>
                 </div>
                 
                 <div class="col-lg-3">
@@ -125,47 +137,7 @@
       
     <tr>
       <th class="thead-dark" style="text-align: right" colspan="7" scope="col">
-      <div>
-          <label for="">Sumas</label>
-      <input type="text" value="{{fa.sumas}}">
-      </div>
      
-      <div>
-          <label for="">IVA(13%)</label>
-      <input type="text" value="{{fa.iva}}">
-      </div>
-
-      <div>
-          <label for="">V.no Sujeta</label>
-      <input type="text" value="0.00">
-      </div>
-      <div>
-          <label for="">V. Exentas</label>
-      <input type="text" value="0.00">
-      </div>
-      <div>
-          <label for="">VENTA TOTAL</label>
-      <input type="text" value="{{fa.total}}">
-      </div>
-
-      <div>
-          <label for="">Efectivo</label>
-          {% if fa.efectivo %}
-      <input type="text" value="{{fa.efectivo}}">
-           {% else %}
-    <input type="text" value="0.00">
-           {% endif %}
-      </div>  
-
-      <div>
-          <label for="">Cambio</label>
-       {% if fa.cambio %}
-      <input type="text" value="{{fa.cambio}}">
-           {% else %}
-    <input type="text" value="0.00">
-           {% endif %}
-      </div>  
-      </div>
       
       </th>
       
@@ -177,6 +149,55 @@
         </tbody>
         </table>
         </div>
+
+        <div>
+
+            <div class="form-group">
+                 <div>
+          <label for="">Sumas</label>
+      <input class="form-control totales" type="text" value="{{fa.sumas}}">
+      </div>
+     
+      <div>
+          <label for="">IVA(13%)</label>
+      <input class="form-control totales" type="text" value="{{fa.iva}}">
+      </div>
+
+      <div>
+          <label for="">V.no Sujeta</label>
+      <input class="form-control totales" type="text" value="0.00">
+      </div>
+      <div>
+          <label for="">V. Exentas</label>
+      <input class="form-control totales" type="text" value="0.00">
+      </div>
+      <div>
+          <label for="">VENTA TOTAL</label>
+      <input class="form-control totales" type="text" value="{{fa.total}}">
+      </div>
+
+      <div>
+          <label for="">Efectivo</label>
+          {% if fa.efectivo %}
+      <input class="form-control totales" type="text" value="{{fa.efectivo}}">
+           {% else %}
+    <input class="form-control totales" type="text" value="0.00">
+           {% endif %}
+      </div>  
+
+      <div>
+          <label for="">Cambio</label>
+       {% if fa.cambio %}
+      <input class="form-control totales" type="text" value="{{fa.cambio}}">
+           {% else %}
+    <input class="form-control totales" type="text" value="0.00">
+           {% endif %}
+      </div>  
+      </div>
+            </div>
+
+
+       
 
 
 	</section>

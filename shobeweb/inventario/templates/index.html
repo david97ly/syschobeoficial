@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google" content="notranslate">
+    <title>SYSTEMA DE MONITOREO DE INVENTARIO</title>
+
+    {% load static from staticfiles %}
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        body{
+            background-color: #00897B;
+        }
+
+     
+
+        img{
+            width: 60%;
+            height: auto;
+            
+            
+        }
+
+        img:hover{
+                background-color: aquamarine;
+                border-radius: 15px;
+                cursor: pointer;
+                padding: 15px;
+                
+        }
+
+      
+
+       
+        .cont{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+        }
+        
+        h5{
+                text-align: center;
+                font-weight: 500;
+                color: white;
+        }
+
+        .fh5{
+           font-size: 15px;     
+        }
+
+
+
+  
+        
+
+        
+    </style>
+
+</head>
+<body>
+       
+    
+    <div ">
+            <div class="row">
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                        <div class="cont">
+                          <img id="productos" heref="/productos" class="imgcon" src="{% static "imagenes/productos.png" %}" alt="">
+                        </div>
+                        <h5 class="d-md-bock">Productos</h5>
+                </div>
+                <br>
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                       <div class="cont">
+                                <img class="imgcon" src="{% static "imagenes/clientes.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Clientes</h5>
+                </div>
+                <br>
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                        <div class="cont">
+                                <img class="imgcon" src="{% static "imagenes/proveedores.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Proveedores</h5>
+                </div>
+                <br>
+                  <div class="col-4 col-md-2 " style="margin-top: 15px">
+                        <div class="cont">
+                                <img class="imgcon" src="{% static "imagenes/comprar.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Comprar</h5>
+                </div>
+                <br>
+              
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                        <div class="cont">
+                                <img id="ventas" class="imgcon" src="{% static "imagenes/ventas.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Ventas</h5>
+                </div>
+                <br>
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                        <div class="cont">
+                                <img class="imgcon" src="{% static "imagenes/compras.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Compras</h5>
+                </div>
+              
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                        <div class="cont">
+                                <img class="imgcon" src="{% static "imagenes/reportes.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Reportes</h5>
+                </div>
+                <br>
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                        <div class="cont">
+                                <img class="imgcon" src="{% static "imagenes/kardex.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Kardex</h5>
+                </div>
+                <br>
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                       <div class="cont">
+                                <img id="ventadiaria" class="imgcon" src="{% static "imagenes/ventadiaria.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Venta diaria</h5>
+                </div>
+                <br>
+           
+            
+                <div class="col-4 col-md-2 " style="margin-top: 15px">
+                        <div class="cont">
+                                <img class="imgcon" src="{% static "imagenes/caja.png" %}" alt="">
+                        </div>
+                        <h5 class="h5con">Caja</h5>
+                </div>
+                <br>
+              
+            </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+
+$(document).ready(function(){
+        
+        $("#productos").click(function(){
+               window.location.href ="{% url 'productos' %}"
+        })
+
+        $("#ventas").click(function(){
+               window.location.href ="{% url 'ventas' %}"
+        })
+
+        $("#ventadiaria").click(function(){
+               window.location.href ="{% url 'ventadiaria' %}"
+        })
+
+       
+
+                
+});
+
+</script>
+
+</body>
+</html>

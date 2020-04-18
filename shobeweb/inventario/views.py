@@ -31,6 +31,18 @@ import sys
 
 # Create your views here.
 
+
+def home(request):
+
+    
+    template = 'index.html'
+    varible = "Exploradores"
+
+
+    context = {'variable':varible}
+
+    return render(request,template,context)
+
 def productos(request):
     
     template = "productos.html"
@@ -55,7 +67,7 @@ def ventas(request):
     year = datetime.now().year
 
     #numventas = Facturaventa.objects.filter(fecha__month=mes,fecha__year=2018).order_by('codfacturav').count()
-    ventas = Facturaventa.objects.filter(fecha__month=mes,fecha__year=year,fecha__day=dia).order_by('codfacturav')
+    ventas = Facturaventa.objects.filter(fecha__month=8,fecha__year=year,fecha__day=3).order_by('codfacturav')
     #ventas = Facturaventa.objects.filter(fecha__range=('2019-08-04', '2019-08-04')).order_by('codfacturav').reverse()
     
 
@@ -255,6 +267,7 @@ def ventadiaria(request):
 
             pr.rtotal = li.total
             ventaTotal += Decimal(li.total)
+            
 
             
 
